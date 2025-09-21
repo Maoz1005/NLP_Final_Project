@@ -11,8 +11,8 @@ from sklearn.model_selection import train_test_split
 
 print("----- START -----")
 MODEL_NAME = "microsoft/deberta-v3-small"
-TEST_PATH = "/vol/joberant_nobck/data/NLP_368307701_2425b/maozhaim/datasets/M4_test_dataset.csv"
-TRAIN_PATH = "/vol/joberant_nobck/data/NLP_368307701_2425b/maozhaim/datasets/M4_train_dataset.csv"
+TEST_PATH = "/vol/joberant_nobck/data/NLP_368307701_2425b/maozhaim/datasets/test_dataset.csv"
+TRAIN_PATH = "/vol/joberant_nobck/data/NLP_368307701_2425b/maozhaim/datasets/train_dataset.csv"
 OUTPUT_DIR = "/home/joberant/NLP_2425b/maozhaim/NLP/deberta-v3/fine-tuning-results"
 MODEL_SAVE_PATH = "/home/joberant/NLP_2425b/maozhaim/NLP/deberta-v3/deberta-v3-fine-tuned-model"
 MAX_LEN = 512
