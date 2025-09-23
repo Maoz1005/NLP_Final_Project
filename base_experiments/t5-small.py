@@ -11,8 +11,8 @@ from sklearn.model_selection import train_test_split
 
 print("----- START -----")
 MODEL_NAME = "google-t5/t5-small"
-TEST_PATH = "/vol/joberant_nobck/data/NLP_368307701_2425b/maozhaim/datasets/M4_test_dataset.csv"
-TRAIN_PATH = "/vol/joberant_nobck/data/NLP_368307701_2425b/maozhaim/datasets/M4_train_dataset.csv"
+TEST_PATH = "/vol/joberant_nobck/data/NLP_368307701_2425b/maozhaim/datasets/test_dataset.csv"
+TRAIN_PATH = "/vol/joberant_nobck/data/NLP_368307701_2425b/maozhaim/datasets/train_dataset.csv"
 OUTPUT_DIR = "/home/joberant/NLP_2425b/maozhaim/NLP/t5-small/fine-tuning-results"
 MODEL_SAVE_PATH = "/home/joberant/NLP_2425b/maozhaim/NLP/t5-small/t5-small-fine-tuned-model"
 MAX_LEN = 512
