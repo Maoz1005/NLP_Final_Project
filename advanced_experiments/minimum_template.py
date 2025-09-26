@@ -18,7 +18,6 @@ MODEL_SAVE_PATH = "/home/joberant/NLP_2425b/maozhaim/NLP/minimum/fine-tuned-mode
 BASE_MODEL = "/home/joberant/NLP_2425b/maozhaim/NLP/minimum/base-model"
 MAX_LEN = 512
 EPOCHS = 3
-# EXAMPLES_NUMBER = [i for i in range(16, 2001, 16)]
 EXAMPLES_NUMBER = [i for i in range(100, 5001, 100)]
 LEARNING_RATE = 5e-6
 TEST_SIZE = 100000 # TEST_SIZE // 2 examples from each label
@@ -66,8 +65,6 @@ print()
 print("--- Load training dataset ---")
 print(f"Dataset path - {TRAIN_PATH}")
 df = pd.read_csv(TRAIN_PATH)
-# df_train_base = df[df['original_dataset'].isin(["essays-mostly_human", "1k_rows"])]
-# df = df[~df['original_dataset'].isin(["essays-mostly_human", "1k_rows"])]
 
 
 print("--- Define metrics computations ---")
@@ -84,16 +81,11 @@ print()
 
 
 for examples_num in EXAMPLES_NUMBER:
-    # print(f"----- Number of examples - {examples_num*6 + len(df_train_base)} -----")
     print(f"----- Number of examples - {examples_num*2} -----")
     model.from_pretrained(BASE_MODEL) # Load base-model
 
-    print("--- Updating training dataset ---")
-    # df_train = df.groupby(["original_dataset", "label"], group_keys=False).apply(lambda x: x.sample(n=examples_num, random_state=42)).reset_index(drop=True)
-    # df_train = pd.concat([df_train_base, df_train], ignore_index=True)
-    
+    print("--- Updating training dataset ---")    
     df_train = df.groupby(["label"], group_keys=False).apply(lambda x: x.sample(n=examples_num, random_state=42)).reset_index(drop=True)
-
     df_train, df_val = train_test_split(df_train, test_size=0.2, stratify=df_train['label'], random_state=42)    
     train_dataset = Dataset.from_pandas(df_train)
     val_dataset = Dataset.from_pandas(df_val)
@@ -173,7 +165,6 @@ for examples_num in EXAMPLES_NUMBER:
     print()
 
     if accuracy >= 0.8:
-        # print(f"Stopped at {examples_num*6 + len(df_train_base)} examples")
         print(f"Stopped at {examples_num*2} examples")
         break
 
