@@ -34,17 +34,20 @@ print()
 
 
 print("--- Model and tokenizer configurations ---")
+print(f"Model - {MODEL_NAME}")
 model_name = MODEL_NAME
 tokenizer = AutoTokenizer.from_pretrained(model_name)
+# tokenizer.pad_token = tokenizer.eos_token  # Assign EOS token as PAD (for GPT-2)
+
 model = AutoModelForSequenceClassification.from_pretrained(
     model_name,
     num_labels=2,
-    id2label={0: "Human", 1: "AI"},
-    label2id={"Human": 0, "AI": 1},
-    use_safetensors=True
+    id2label={1: "AI", 0: "Human"},
+    label2id={"AI": 1, "Human": 0}
 )
+# model.config.pad_token_id = tokenizer.pad_token_id # Ensure padding token is recognized by the model (for GPT-2)
 model.to(device)
-print("Save base model")
+print()
 model.save_pretrained(BASE_MODEL)
 
 
@@ -94,7 +97,7 @@ def compute_metrics(pred):
     return {"accuracy": acc, "precision": precision, "recall": recall, "f1": f1}
 print()
 
-
+cond = 0
 for epoch in EPOCHS:
     print(f"----- Number of epochs - {epoch} -----")
     model.from_pretrained(BASE_MODEL) # Load base-model
@@ -161,5 +164,14 @@ for epoch in EPOCHS:
     print(f"Accuracy: {accuracy:.4f}")
     print(f"Precision: {precision:.4f}")
     print()
+
+    if accuracy >= 0.8:
+        if cond == 1:
+            print(f"----- Ideal number of epochs - {epoch - 1} -----")
+            break
+        else:
+            cond = 1
+    else:
+        cond = 0
 
 print("----- FINISH -----")
