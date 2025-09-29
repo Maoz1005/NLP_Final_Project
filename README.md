@@ -1,4 +1,4 @@
-# Reverse Turing Test Experiments
+# Can LLMs Pass a "Reverse Turing Test"?
 
 This repository contains the code used to reproduce all experiments from our work on AI-versus-human text classification.
 
